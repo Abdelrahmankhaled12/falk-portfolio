@@ -12,9 +12,11 @@ function Contact() {
         message: ''
     });
 
+    const [dataHref , setDataHref] = useState("");
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        axios.post('http://localhost:3000/sendmail.php', formData)
+        axios.post('../php/sendmail.php', formData)
             .then(response => {
                 console.log(response.data);
             })
@@ -30,8 +32,10 @@ function Contact() {
             [e.target.name]: e.target.value
         });
 
-        console.log(formData)
+        setDataHref("mailto:abdelrahman.khaled1086@gmail.com?subject=" + formData.name +"&body="+ formData.message )
     };
+
+
 
     return (
         <div className="bg-bgColor pt-10 pb-10" id="Contact">
@@ -45,7 +49,7 @@ function Contact() {
                         <input type={"text"} name="name" onChange={handleChange}  className="rounded-lg border-2 border-solid border-second-color py-2.5 px-4 text-xl w-full" placeholder="Name" />
                         <input type={"email"} name="email" onChange={handleChange} className="rounded-lg border-2 border-solid border-second-color py-2.5 px-4 text-xl w-full" placeholder="Email" />
                         <textarea name="message" onChange={handleChange} className="rounded-lg border-2 border-solid border-second-color py-2.5 px-4 text-xl w-full h-[200px]" placeholder="Write a message"></textarea>
-                        <button type="sumbit" className="bg-primary-color border border-solid border-primary-color text-white font-semibold hover:text-primary-color hover:bg-white duration-500 py-2.5 px-4 rounded-xl">Send to message</button>
+                        <a href={dataHref} className="bg-primary-color border border-solid border-primary-color text-white font-semibold hover:text-primary-color hover:bg-white duration-500 py-2.5 px-4 rounded-xl">Send to message</a>
                     </form>
                     <div className="boxes">
                         <div className="box mb-5 p-10 bg-second-color rounded-[40px] text-white text-center">
